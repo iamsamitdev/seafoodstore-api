@@ -1,4 +1,5 @@
 import { Controller, Get, Post, Put, Delete, Query, Param, Body, HttpCode, Redirect } from '@nestjs/common'
+import { ApiExcludeEndpoint } from '@nestjs/swagger'
 // import { AppService } from './app.service'
 
 // กำหนด Data Transfer Object (DTO)
@@ -13,6 +14,7 @@ export class AppController {
   // Redirect to /api
   @Get()
   @Redirect('/api', 301) // redirect ไปยัง '/' ของ global prefix
+  @ApiExcludeEndpoint() // ไม่แสดงใน Swagger
   redirectToApi() {
     return
   }
