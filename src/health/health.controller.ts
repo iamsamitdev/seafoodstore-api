@@ -1,11 +1,17 @@
 import { Controller, Get } from '@nestjs/common'
 import { DataSource  } from 'typeorm'
 
+import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger'
+
+@ApiTags('health')
+
 @Controller('health')
 export class HealthController {
 
     constructor(private dataSource: DataSource) {}
 
+    @ApiOperation({ summary: 'ตรวจสอบการเชื่อมต่อฐานข้อมูล' })
+    @ApiResponse({ status: 200, description: 'ตรวจสอบการเชื่อมต่อฐานข้อมูล' })
     @Get()
     async checkDBConnection() { 
         try {
@@ -29,6 +35,8 @@ export class HealthController {
         }
     }
 
+    @ApiOperation({ summary: 'แสดงรายการสินค้าพร้อม Stock' })
+    @ApiResponse({ status: 200, description: 'แสดงรายการสินค้าพร้อม Stock' })
     @Get('products-with-stock')
     async getProductsWithStock() {
         try {

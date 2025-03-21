@@ -2,12 +2,12 @@ import { Module } from '@nestjs/common'
 import { AppController } from './app.controller'
 import { AppService } from './app.service'
 import { ConfigModule, ConfigService } from '@nestjs/config'
-import { ProductsModule } from './products/products.module'
+// import { ProductsModule } from './products/products.module'
 import { TypeOrmModule } from '@nestjs/typeorm'
 import { HealthController } from './health/health.controller';
-import { StoreController } from './store/store.controller';
-import { StoreService } from './store/store.service';
-import { Category } from './store/entities/category.entity'
+import { StoreModule } from './store/store.module';
+import { AuthModule } from './auth/auth.module';
+// import { RouterModule } from '@nestjs/core'
 
 @Module({
   imports: [ConfigModule.forRoot({
@@ -23,18 +23,32 @@ import { Category } from './store/entities/category.entity'
       username: configService.get('DATABASE_USERNAME'),
       password: configService.get('DATABASE_PASSWORD'),
       database: configService.get('DATABASE_NAME'),
-      synchronize: false,
-      entities: [Category],
+      entities: [__dirname + '/**/*.entity{.ts,.js}'],
+      synchronize: false
     }),
   }),
-  TypeOrmModule.forFeature([Category]),
-  ProductsModule
+  // RouterModule.register([
+  //   {
+  //     path: 'health',
+  //     module: HealthController
+  //   },
+  //   {
+  //     path: 'api',
+  //     module: AuthModule
+  //   },
+  //   {
+  //     path: 'store',
+  //     module: StoreModule
+  //   }
+  // ]),
+  // ProductsModule,
+  StoreModule,
+  AuthModule
 ],
   controllers: [
     AppController, 
-    HealthController, 
-    StoreController
+    HealthController
   ],
-  providers: [AppService, StoreService],
+  providers: [AppService],
 })
 export class AppModule {}

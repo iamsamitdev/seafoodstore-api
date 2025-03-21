@@ -1,37 +1,44 @@
-import { Controller, Get, Post, Put, Delete, Query, Param, Body, HttpCode } from '@nestjs/common'
+import { Controller, Get, Post, Put, Delete, Query, Param, Body, HttpCode, Redirect } from '@nestjs/common'
 // import { AppService } from './app.service'
 
 // กำหนด Data Transfer Object (DTO)
-class ProductDTO {
-  name: string
-  price: number
-}
+// class ProductDTO {
+//   name: string
+//   price: number
+// }
 
 @Controller()
 export class AppController {
 
+  // Redirect to /api
+  @Get()
+  @Redirect('/api', 301) // redirect ไปยัง '/' ของ global prefix
+  redirectToApi() {
+    return
+  }
+
   // constructor(private readonly appService: AppService) {}
 
   // GET /
-  @Get()
-  getHello(): string {
+  // @Get()
+  // getHello(): string {
     // return this.appService.getHello()
-    return "Hello World!"
-  }
+  //   return "Hello World!"
+  // }
 
   // GET /info
-  @Get('info')
-  getInfo(): string {
+  // @Get('info')
+  // getInfo(): string {
     // return this.appService.getInfo()
-    return "This is a test API"
-  }
+  //   return "This is a test API"
+  // }
 
   // GET /search?name=productName&price=100
-  @Get('search')
-  getSearch(@Query('name') name: string, @Query('price') price: number): string {
+  // @Get('search')
+  // getSearch(@Query('name') name: string, @Query('price') price: number): string {
     // return this.appService.getSearch()
-    return `Search for product: ${name} with price: ${ Number(price) + 10 }`
-  }
+  //   return `Search for product: ${name} with price: ${ Number(price) + 10 }`
+  // }
 
   // GET /id/pname
   // @Get(':id/:pname') 
@@ -51,33 +58,33 @@ export class AppController {
   // }
 
   // POST /
-  @Post()
-  @HttpCode(201)
-  createProduct(@Body() product: any) {
-    return {
-      message: 'Product created',
-      data: product
-    }
-  }
+  // @Post()
+  // @HttpCode(201)
+  // createProduct(@Body() product: any) {
+  //   return {
+  //     message: 'Product created',
+  //     data: product
+  //   }
+  // }
 
   // PUT /id
-  @Put(':id')
-  updateProduct(
-    @Param('id') id: string, 
-    @Body() product: any) {
-    return {
-      message: 'Product updated',
-      data: product
-    }
-  }
+  // @Put(':id')
+  // updateProduct(
+  //   @Param('id') id: string, 
+  //   @Body() product: any) {
+  //   return {
+  //     message: 'Product updated',
+  //     data: product
+  //   }
+  // }
 
   // DELETE /id
-  @Delete(':id')
-  deleteProduct(@Param('id') id: string) {
-    return {
-      message: 'Product deleted',
-      id: id
-    }
-  }
+  // @Delete(':id')
+  // deleteProduct(@Param('id') id: string) {
+  //   return {
+  //     message: 'Product deleted',
+  //     id: id
+  //   }
+  // }
 
 }
